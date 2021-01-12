@@ -1,7 +1,7 @@
 document.querySelector('#postTextarea').addEventListener('keyup', (e) => {
   const textbox = e.target;
   const value = textbox.value.trim();
-  var submitButton = document.querySelector('#submitPostButton');
+  const submitButton = document.querySelector('#submitPostButton');
   if (submitButton.length === 0) {
     return alert('no submit button found');
   }
@@ -10,4 +10,17 @@ document.querySelector('#postTextarea').addEventListener('keyup', (e) => {
     return;
   }
   submitButton.disabled = false;
+});
+
+$('#submitPostButton').click((e) => {
+  const button = $(e.target);
+  const textbox = $('#postTextarea');
+
+  const data = {
+    content: textbox.val(),
+  };
+
+  $.post('/api/posts', data, (postData, status, xhr) => {
+    alert('yo');
+  });
 });

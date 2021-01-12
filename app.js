@@ -23,14 +23,21 @@ app.use(
   })
 );
 
-// Routes
+// Browser Routes - Require
 const loginRoute = require('./routes/loginRoutes');
 const logoutRoute = require('./routes/logout');
 const registerRoute = require('./routes/registerRoutes');
 
+// API Routes - Require
+const postsApiRoute = require('./routes/api/posts');
+
+// Browser Routes - Apply
 app.use('/login', loginRoute);
 app.use('/logout', logoutRoute);
 app.use('/register', registerRoute);
+
+// API Routes - Apply
+app.use('/api/posts', postsApiRoute);
 
 app.get('/', requireLogin, (req, res, next) => {
   let payload = {
