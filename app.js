@@ -14,8 +14,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 const loginRoute = require('./routes/loginRoutes');
+const registerRoute = require('./routes/registerRoutes');
 
 app.use('/login', loginRoute);
+app.use('/register', registerRoute);
 
 app.get('/', requireLogin, (req, res, next) => {
   let payload = {
