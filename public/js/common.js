@@ -33,17 +33,24 @@ const createPostHtml = (postData) => {
   //   postedBy: { profilePic, username, firstName, lastName, createdAt },
   //   content,
   // } = postData;
-  const displayName = postData.firstName + ' ' + postData.lastName;
+  console.log(`postData:`, postData);
+  const postedBy = postData.postedBy;
+
+  if (postData._id === undefined) {
+    return console.log('user object not populated');
+  }
+
+  const displayName = postedBy.firstName + ' ' + postedBy.lastName;
 
   return `<div class='post'>
     <div class='mainContentContainer'>
       <div class='userImageContainer'>
-        <img src='${postData.profilePic}'>
+        <img src='${postedBy.profilePic}'>
       </div>
       <div class='postContentContainer'>
         <div class='header'>
-          <a href='/profile/${postData.username}' class='displayName'>${displayName}</a>
-          <span class='username'>@${postData.username}</span>
+          <a href='/profile/${postedBy.username}' class='displayName'>${displayName}</a>
+          <span class='username'>@${postedBy.username}</span>
           <span class='date'>${postData.createdAt}</span>
         </div>
         <div class='postBody'>
