@@ -29,25 +29,25 @@ $('#submitPostButton').click((e) => {
 });
 
 const createPostHtml = (postData) => {
-  const {
-    postedBy: { profilePic, username, firstName, lastName, createdAt },
-    content,
-  } = postData;
-  const displayName = firstName + ' ' + lastName;
+  // const {
+  //   postedBy: { profilePic, username, firstName, lastName, createdAt },
+  //   content,
+  // } = postData;
+  const displayName = postData.firstName + ' ' + postData.lastName;
 
   return `<div class='post'>
     <div class='mainContentContainer'>
       <div class='userImageContainer'>
-        <img src='${profilePic}'>
+        <img src='${postData.profilePic}'>
       </div>
       <div class='postContentContainer'>
         <div class='header'>
-          <a href='/profile/${username}' class='displayName'>${displayName}</a>
-          <span class='username'>@${username}</span>
-          <span class='date'>${createdAt}</span>
+          <a href='/profile/${postData.username}' class='displayName'>${displayName}</a>
+          <span class='username'>@${postData.username}</span>
+          <span class='date'>${postData.createdAt}</span>
         </div>
         <div class='postBody'>
-          <span>${content}</span>
+          <span>${postData.content}</span>
         </div>
         <div class='postFooter'>
           <div class='postButtonContainer'>
