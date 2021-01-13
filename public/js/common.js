@@ -27,6 +27,9 @@ $('#submitPostButton').click((e) => {
     button.prop('disabled', true);
   });
 });
+$(document).on('click', '.likeButton', (e) => {
+  alert('like button clicked');
+});
 
 const createPostHtml = (postData) => {
   // const {
@@ -68,7 +71,7 @@ const createPostHtml = (postData) => {
             </button>
           </div>
           <div class='postButtonContainer'>
-            <button>
+            <button class='likeButton'>
               <i class='far fa-heart'></i>
             </button>
           </div>
