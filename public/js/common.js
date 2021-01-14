@@ -94,6 +94,11 @@ const createPostHtml = (postData) => {
   const likeButtonActiveClass = postData.likes.includes(userLoggedIn._id)
     ? 'active'
     : '';
+  const retweetButtonActiveClass = postData.retweetUsers.includes(
+    userLoggedIn._id
+  )
+    ? 'active'
+    : '';
 
   if (postData._id === undefined) {
     return console.log('user object not populated');
@@ -124,7 +129,7 @@ const createPostHtml = (postData) => {
             </button>
           </div>
           <div class='postButtonContainer green'>
-            <button class='retweetButton'>
+            <button class='retweetButton ${retweetButtonActiveClass}'>
               <i class='fas fa-retweet'></i>
               <span>${postData.retweetUsers.length || ''}</span>
             </button>
