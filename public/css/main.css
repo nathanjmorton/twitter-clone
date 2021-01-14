@@ -211,5 +211,5 @@ button span {
   padding-left: 35px;
   font-size: 13px;
   color: var(--greyText);
-  margin-bottom: var(--spacing);
+  margin-bottom: 5px;
 }
