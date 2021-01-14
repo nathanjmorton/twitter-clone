@@ -28,8 +28,31 @@ $('#submitPostButton').click((e) => {
   });
 });
 $(document).on('click', '.likeButton', (e) => {
-  alert('like button clicked');
+  const button = $(e.target);
+  var postId = getPostIdFromElement(button);
+
+  if (postId === undefined) {
+    return;
+  }
+
+  $.ajax({
+    url: '/api/posts',
+    type: 'PUT',
+    success: (postData) => {
+      console.log(postData);
+    },
+  });
 });
+
+const getPostIdFromElement = (element) => {
+  const isRoot = element.hasClass('post');
+  const rootElement = isRoot ? element : element.closest('.post');
+  const postId = rootElement.data().id;
+  if (postId === undefined) {
+    return alert('post id undefined');
+  }
+  return postId;
+};
 
 const createPostHtml = (postData) => {
   // const {
@@ -45,7 +68,7 @@ const createPostHtml = (postData) => {
 
   const displayName = postedBy.firstName + ' ' + postedBy.lastName;
 
-  return `<div class='post'>
+  return `<div class='post' data-id=${postData._id}>
     <div class='mainContentContainer'>
       <div class='userImageContainer'>
         <img src='${postedBy.profilePic}'>
