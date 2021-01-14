@@ -118,7 +118,10 @@ const createPostHtml = (postData) => {
 
   let retweetText = '';
   if (isRetweet) {
-    retweetText = `<span>Retweeted by <a href='/profile/${retweetBy}'>@${retweetBy}</a></span>`;
+    retweetText = `<span>
+      <i class='fas fa-retweet'></i>
+      Retweeted by <a href='/profile/${retweetBy}'>@${retweetBy}</a>
+    </span>`;
   }
 
   return `<div class='post' data-id=${postData._id}>
