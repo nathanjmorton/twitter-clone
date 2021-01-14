@@ -88,7 +88,23 @@ const createPostHtml = (postData) => {
   //   postedBy: { profilePic, username, firstName, lastName, createdAt },
   //   content,
   // } = postData;
+  if (postData === null) {
+    return alert('post object is null');
+  }
+
+  const isRetweet = postData.retweetData !== undefined;
+  const retweetBy = isRetweet ? postData.postedBy.username : null;
+  postData = isRetweet ? postData.retweetData : postData;
+
+  console.log(isRetweet);
+
   const postedBy = postData.postedBy;
+
+  if (postedBy._id === undefined) {
+    return console.log('user object not populated');
+  }
+
+  const displayName = postedBy.firstName + ' ' + postedBy.lastName;
   const timestamp = timeDifference(new Date(), new Date(postData.createdAt));
 
   const likeButtonActiveClass = postData.likes.includes(userLoggedIn._id)
@@ -99,12 +115,6 @@ const createPostHtml = (postData) => {
   )
     ? 'active'
     : '';
-
-  if (postData._id === undefined) {
-    return console.log('user object not populated');
-  }
-
-  const displayName = postedBy.firstName + ' ' + postedBy.lastName;
 
   return `<div class='post' data-id=${postData._id}>
     <div class='mainContentContainer'>
