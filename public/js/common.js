@@ -124,6 +124,10 @@ const createPostHtml = (postData) => {
     </span>`;
   }
 
+  // $('#replyModal').on('shown.bs.modal', function () {
+  //   $('#myInput').trigger('focus');
+  // });
+
   return `<div class='post' data-id=${postData._id}>
     <div class='postActionContainer'>
       ${retweetText}
@@ -145,7 +149,7 @@ const createPostHtml = (postData) => {
         </div>
         <div class='postFooter'>
           <div class='postButtonContainer'>
-            <button>
+            <button data-toggle='modal' data-target='#replyModal'>
               <i class='far fa-comment'></i>
             </button>
           </div>
