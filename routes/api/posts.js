@@ -49,7 +49,23 @@ router.put('/:id/like', async (req, res, next) => {
   const isLiked =
     req.session.user.likes && req.session.user.likes.includes(postId);
 
-  console.log('Is liked:', isLiked);
+  const option = isLiked ? '$pull' : '$addToSet';
+
+  console.log('isLiked:', isLiked);
+  console.log('option:', option);
+  console.log('userId:', userId);
+
+  // Insert user like
+  req.session.user = await User.findByIdAndUpdate(
+    userId,
+    { [option]: { likes: postId } },
+    { new: true }
+  ).catch((err) => {
+    console.log(err);
+    res.sendStatus(400);
+  });
+
+  // Insert post like
 
   res.status(200).send('Yahoo');
 });
