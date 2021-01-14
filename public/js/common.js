@@ -36,7 +36,7 @@ $(document).on('click', '.likeButton', (e) => {
   }
 
   $.ajax({
-    url: '/api/posts',
+    url: `/api/posts/${postId}/like`,
     type: 'PUT',
     success: (postData) => {
       console.log(postData);
