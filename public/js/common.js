@@ -1,15 +1,21 @@
-document.querySelector('#postTextarea').addEventListener('keyup', (e) => {
-  const textbox = e.target;
-  const value = textbox.value.trim();
-  const submitButton = document.querySelector('#submitPostButton');
+$('#postTextarea, #replyTextarea').keyup((e) => {
+  const textbox = $(e.target);
+  const value = textbox.val().trim();
+
+  var isModal = textbox.parents('.modal').length === 1;
+
+  const submitButton = isModal
+    ? $('#submitReplyButton')
+    : $('#submitPostButton');
+
   if (submitButton.length === 0) {
     return alert('no submit button found');
   }
   if (value === '') {
-    submitButton.disabled = true;
+    submitButton.prop('disabled', true);
     return;
   }
-  submitButton.disabled = false;
+  submitButton.prop('disabled', false);
 });
 
 $('#submitPostButton').click((e) => {
