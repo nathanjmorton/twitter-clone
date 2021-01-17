@@ -65,12 +65,18 @@ $('#deletePostModal').on('show.bs.modal', (e) => {
   const button = $(e.relatedTarget);
   const postId = getPostIdFromElement(button);
   $('#deletePostButton').data('id', postId);
+});
 
-  console.log($('#deletePostButton').data().id);
+$('#deletePostButton').click((e) => {
+  const postId = $(e.target).data('id');
 
-  // $.get(`/api/posts/${postId}`, (results) => {
-  //   outputPosts(results.postData, $('#originalPostContainer'));
-  // });
+  $.ajax({
+    url: `/api/posts/${postId}`,
+    type: 'DELETE',
+    success: (data) => {
+      location.reload();
+    },
+  });
 });
 
 $(document).on('click', '.likeButton', (e) => {
