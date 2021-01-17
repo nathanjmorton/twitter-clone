@@ -126,7 +126,7 @@ const getPostIdFromElement = (element) => {
   return postId;
 };
 
-const createPostHtml = (postData) => {
+const createPostHtml = (postData, largeFont = false) => {
   // const {
   //   postedBy: { profilePic, username, firstName, lastName, createdAt },
   //   content,
@@ -156,6 +156,7 @@ const createPostHtml = (postData) => {
   )
     ? 'active'
     : '';
+  const largeFontClass = largeFont ? 'largeFont' : '';
 
   let retweetText = '';
   if (isRetweet) {
@@ -178,7 +179,7 @@ const createPostHtml = (postData) => {
     </div>`;
   }
 
-  return `<div class='post' data-id=${postData._id}>
+  return `<div class='post ${largeFontClass}' data-id=${postData._id}>
     <div class='postActionContainer'>
       ${retweetText}
     </div>
@@ -272,7 +273,7 @@ const outputPostsWithReplies = (results, container) => {
     container.append(html);
   }
 
-  let mainPostHtml = createPostHtml(results.postData);
+  let mainPostHtml = createPostHtml(results.postData, true);
   container.append(mainPostHtml);
 
   results.replies.forEach((result) => {
