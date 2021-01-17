@@ -326,4 +326,10 @@ button span {
 
 .tab {
   flex: 1;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--greyText);
+  font-weight: bold;
 }
