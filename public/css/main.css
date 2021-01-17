@@ -289,3 +289,8 @@ button span {
 .followButton:hover {
   background-color: var(--blueBackground);
 }
+
+.followButton.following {
+  background-color: var(--blue);
+  color: #ffffff;
+}
