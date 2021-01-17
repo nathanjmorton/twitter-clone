@@ -156,9 +156,18 @@ const createPostHtml = (postData) => {
     </span>`;
   }
 
-  // $('#replyModal').on('shown.bs.modal', function () {
-  //   $('#myInput').trigger('focus');
-  // });
+  let replyFlag = '';
+  if (postData.replyTo) {
+    if (!postData.replyTo._id) {
+      return alert('replyTo is not populated');
+    } else if (!postData.replyTo.postedBy._id) {
+      return alert('postedBy is not populated');
+    }
+    const replyToUsername = postData.replyTo.postedBy.username;
+    replyFlag = `<div class='replyFlag'>
+      Replying to <a href='/profile/${replyToUsername}'>@${replyToUsername}</a>
+    </div>`;
+  }
 
   return `<div class='post' data-id=${postData._id}>
     <div class='postActionContainer'>
@@ -176,6 +185,7 @@ const createPostHtml = (postData) => {
           <span class='username'>@${postedBy.username}</span>
           <span class='date'>${timestamp}</span>
         </div>
+        ${replyFlag}
         <div class='postBody'>
           <span>${postData.content}</span>
         </div>
