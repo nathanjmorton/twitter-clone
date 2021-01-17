@@ -317,3 +317,13 @@ button span {
 .followersContainer a:hover {
   border-bottom: 1px solid #000000;
 }
+
+.tabsContainer {
+  display: flex;
+  border-bottom: 1px solid var(--lightGrey);
+  flex-shrink: 0;
+}
+
+.tab {
+  flex: 1;
+}
