@@ -61,6 +61,18 @@ $('#replyModal').on('hidden.bs.modal', (e) => {
   $('#originalPostContainer').html('');
 });
 
+$('#deletePostModal').on('show.bs.modal', (e) => {
+  const button = $(e.relatedTarget);
+  const postId = getPostIdFromElement(button);
+  $('#deletePostButton').data('id', postId);
+
+  console.log($('#deletePostButton').data().id);
+
+  // $.get(`/api/posts/${postId}`, (results) => {
+  //   outputPosts(results.postData, $('#originalPostContainer'));
+  // });
+});
+
 $(document).on('click', '.likeButton', (e) => {
   const button = $(e.target);
   var postId = getPostIdFromElement(button);
@@ -179,6 +191,13 @@ const createPostHtml = (postData, largeFont = false) => {
     </div>`;
   }
 
+  let buttons = '';
+  if (postData.postedBy._id === userLoggedIn._id) {
+    buttons = `<button data-id='${postData._id}' data-toggle='modal' data-target='#deletePostModal'>
+      <i class="fas fa-times"></i>
+    </button>`;
+  }
+
   return `<div class='post ${largeFontClass}' data-id=${postData._id}>
     <div class='postActionContainer'>
       ${retweetText}
@@ -194,6 +213,7 @@ const createPostHtml = (postData, largeFont = false) => {
           }' class='displayName'>${displayName}</a>
           <span class='username'>@${postedBy.username}</span>
           <span class='date'>${timestamp}</span>
+          ${buttons}
         </div>
         ${replyFlag}
         <div class='postBody'>
