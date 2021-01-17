@@ -28,6 +28,11 @@ router.post('/', async (req, res, next) => {
       content: req.body.content,
       postedBy: req.session.user,
     };
+
+    if (req.body.replyTo) {
+      postData.replyTo = req.body.replyTo;
+    }
+
     Post.create(postData)
       .then(async (newPost) => {
         newPost = await User.populate(newPost, { path: 'postedBy' });
