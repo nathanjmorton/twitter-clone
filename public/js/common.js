@@ -134,6 +134,26 @@ $(document).on('click', '.post', (e) => {
   }
 });
 
+$(document).on('click', '.followButton', (e) => {
+  const button = $(e.target);
+  const userId = button.data().user;
+
+  $.ajax({
+    url: `/api/users/${userId}/follow`,
+    type: 'PUT',
+    success: (data) => {
+      console.log(data);
+      // button.find('span').text(postData.retweetUsers.length || '');
+
+      // if (postData.retweetUsers.includes(userLoggedIn._id)) {
+      //   button.addClass('active');
+      // } else {
+      //   button.removeClass('active');
+      // }
+    },
+  });
+});
+
 const getPostIdFromElement = (element) => {
   const isRoot = element.hasClass('post');
   const rootElement = isRoot ? element : element.closest('.post');
