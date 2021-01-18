@@ -333,3 +333,13 @@ button span {
   color: var(--greyText);
   font-weight: bold;
 }
+
+.tab.active {
+  color: var(--blue);
+  border-bottom: 2px solid var(--blue);
+}
+
+.tab:hover {
+  color: var(--blue);
+  background-color: var(--blueBackground);
+}
