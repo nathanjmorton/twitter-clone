@@ -8,7 +8,9 @@ const Post = require('../../schemas/PostSchema');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', async (req, res, next) => {
-  const results = await getPosts({});
+  const searchObj = req.query;
+
+  const results = await getPosts(searchObj);
   res.status(200).send(results);
 });
 
