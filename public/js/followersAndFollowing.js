@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  if (selectedTab === 'replies') {
+  if (selectedTab === 'followers') {
     loadFollowers();
   } else {
     loadFollowing();
@@ -7,17 +7,17 @@ $(document).ready(() => {
 });
 
 const loadFollowers = () => {
-  $.get(
-    '/api/posts',
-    { postedBy: profileUserId, isReply: false },
-    (results) => {
-      outputPosts(results, $('.postsContainer'));
-    }
-  );
+  $.get(`/api/users/${profileUserId}/followers`, (results) => {
+    outputUsers(results, $('.resultsContainer'));
+  });
 };
 
 const loadFollowing = () => {
-  $.get('/api/posts', { postedBy: profileUserId, isReply: true }, (results) => {
-    outputPosts(results, $('.postsContainer'));
+  $.get(`/api/users/${profileUserId}/following`, (results) => {
+    outputUsers(results, $('.resultsContainer'));
   });
+};
+
+const outputUsers = (data, container) => {
+  console.log(data);
 };
