@@ -82,12 +82,18 @@ router.post(
     const tempPath = req.file.path;
     var targetPath = path.join(__dirname, `../../${filePath}`);
 
-    fs.rename(tempPath, targetPath, (e) => {
+    fs.rename(tempPath, targetPath, async (e) => {
       if (e !== null) {
         console.log(err);
         return res.sendStatus(400);
       }
-      res.sendStatus(200);
+
+      req.session.user = await User.findByIdAndUpdate(
+        req.session.user._id,
+        { profilePic: filePath },
+        { new: true }
+      );
+      res.sendStatus(204);
     });
   }
 );
