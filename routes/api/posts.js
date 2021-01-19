@@ -21,6 +21,11 @@ router.get('/', async (req, res, next) => {
 
     if (followingOnly) {
       let objectIds = [];
+
+      if (!req.session.user.following) {
+        req.session.user.following = [];
+      }
+
       req.session.user.following.forEach((user) => {
         objectIds.push(user);
       });
