@@ -1,3 +1,6 @@
+// Globals
+let cropper;
+
 $('#postTextarea, #replyTextarea').keyup((e) => {
   const textbox = $(e.target);
   const value = textbox.val().trim();
@@ -85,10 +88,44 @@ $('#filePhoto').change((e) => {
   if (input.files && input.files[0]) {
     const reader = new FileReader();
     reader.onload = (e) => {
-      $('#imagePreview').attr('src', e.target.result);
+      const image = document.querySelector('#imagePreview');
+      image.src = e.target.result;
+      // $('#imagePreview').attr('src', e.target.result);
+
+      if (cropper !== undefined) {
+        cropper.destroy();
+      }
+      cropper = new Cropper(image, {
+        aspectRatio: 1 / 1,
+        background: false,
+      });
     };
     reader.readAsDataURL(input.files[0]);
   }
+});
+
+$('#imageUploadButton').click(() => {
+  const canvas = cropper.getCroppedCanvas();
+
+  if (canvas === null) {
+    alert('could not upload image make sure it is an image file');
+    return;
+  }
+
+  canvas.toBlob((blob) => {
+    const formData = new FormData();
+    formData.append('croppedImage', blob);
+    $.ajax({
+      url: '/api/users/profilePicture',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: () => {
+        location.reload();
+      },
+    });
+  });
 });
 
 $(document).on('click', '.likeButton', (e) => {

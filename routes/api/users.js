@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const path = require('path');
+const fs = require('fs');
 const User = require('../../schemas/UserSchema');
 const Post = require('../../schemas/PostSchema');
 
@@ -64,5 +68,28 @@ router.get('/:userId/following', async (req, res, next) => {
       res.sendStatus(400);
     });
 });
+
+router.post(
+  '/profilePicture',
+  upload.single('croppedImage'),
+  async (req, res, next) => {
+    if (!req.file) {
+      console.log('no file uploaded with ajax request');
+      return res.sendStatus(400);
+    }
+
+    const filePath = `/uploads/images/${req.file.filename}.png`;
+    const tempPath = req.file.path;
+    var targetPath = path.join(__dirname, `../../${filePath}`);
+
+    fs.rename(tempPath, targetPath, (e) => {
+      if (e !== null) {
+        console.log(err);
+        return res.sendStatus(400);
+      }
+      res.sendStatus(200);
+    });
+  }
+);
 
 module.exports = router;
