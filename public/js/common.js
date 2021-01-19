@@ -79,6 +79,18 @@ $('#deletePostButton').click((e) => {
   });
 });
 
+$('#filePhoto').change((e) => {
+  const input = $(e.target)[0];
+
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      $('#imagePreview').attr('src', e.target.result);
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+});
+
 $(document).on('click', '.likeButton', (e) => {
   const button = $(e.target);
   var postId = getPostIdFromElement(button);
