@@ -25,6 +25,10 @@ const outputUsers = (results, container) => {
     html = createUserHtml(result, true);
     container.append(html);
   });
+
+  if (results.length === 0) {
+    container.append("<span class='noResults'>No results found</span>");
+  }
 };
 
 const createUserHtml = (userData, showFollowButton) => {
