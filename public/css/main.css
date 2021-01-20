@@ -411,3 +411,8 @@ button span {
 .mainContentContainer {
   display: flex;
 }
+
+.pinnedPostText {
+  font-size: 12px;
+  color: var(--greyText);
+}
