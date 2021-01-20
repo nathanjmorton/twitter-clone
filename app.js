@@ -30,6 +30,7 @@ const registerRoute = require('./routes/registerRoutes');
 const postRoute = require('./routes/postRoutes');
 const profileRoute = require('./routes/profileRoutes');
 const uploadRoute = require('./routes/uploadRoutes');
+const searchRoute = require('./routes/searchRoutes');
 
 // API Routes - Require
 const postsApiRoute = require('./routes/api/posts');
@@ -42,6 +43,7 @@ app.use('/register', registerRoute);
 app.use('/post', requireLogin, postRoute);
 app.use('/profile', requireLogin, profileRoute);
 app.use('/uploads', uploadRoute);
+app.use('/search', requireLogin, searchRoute);
 
 // API Routes - Apply
 app.use('/api/posts', postsApiRoute);
