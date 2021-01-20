@@ -7,6 +7,9 @@ $(document).ready(() => {
 });
 
 const loadPosts = () => {
+  $.get('/api/posts', { postedBy: profileUserId, pinned: true }, (results) => {
+    outputPinnedPost(results, $('.pinnedPostContainer'));
+  });
   $.get(
     '/api/posts',
     { postedBy: profileUserId, isReply: false },
@@ -19,5 +22,18 @@ const loadPosts = () => {
 const loadReplies = () => {
   $.get('/api/posts', { postedBy: profileUserId, isReply: true }, (results) => {
     outputPosts(results, $('.postsContainer'));
+  });
+};
+
+const outputPinnedPost = (results, container) => {
+  if (results.length === 0) {
+    container.hide();
+    return;
+  }
+  container.html('');
+
+  results.forEach((result) => {
+    let html = createPostHtml(result);
+    container.append(html);
   });
 };
