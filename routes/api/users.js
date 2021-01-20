@@ -98,4 +98,33 @@ router.post(
   }
 );
 
+router.post(
+  '/coverPhoto',
+  upload.single('croppedImage'),
+  async (req, res, next) => {
+    if (!req.file) {
+      console.log('no file uploaded with ajax request');
+      return res.sendStatus(400);
+    }
+
+    const filePath = `/uploads/images/${req.file.filename}.png`;
+    const tempPath = req.file.path;
+    var targetPath = path.join(__dirname, `../../${filePath}`);
+
+    fs.rename(tempPath, targetPath, async (e) => {
+      if (e !== null) {
+        console.log(err);
+        return res.sendStatus(400);
+      }
+
+      req.session.user = await User.findByIdAndUpdate(
+        req.session.user._id,
+        { coverPhoto: filePath },
+        { new: true }
+      );
+      res.sendStatus(204);
+    });
+  }
+);
+
 module.exports = router;
