@@ -185,6 +185,35 @@ router.delete('/:id', async (req, res, next) => {
   res.status(202).send(results);
 });
 
+router.put('/:id', async (req, res, next) => {
+  const postId = req.params.id;
+  // await Post.findByIdAndDelete(postId)
+  //   .then(() => {
+  //     res.sendStatus(202);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.sendStatus(400);
+  //   });
+
+  if (req.body.pinned !== undefined) {
+    await Post.updateMany(
+      { postedBy: req.session.user },
+      { pinned: false }
+    ).catch((err) => {
+      console.log(err);
+      res.sendStatus(400);
+    });
+  }
+
+  await Post.findByIdAndUpdate(req.params.id, req.body).catch((err) => {
+    console.log(err);
+    res.sendStatus(400);
+  });
+
+  res.sendStatus(204);
+});
+
 const getPosts = async (filter) => {
   let results = await Post.find(filter)
     .populate('postedBy')
