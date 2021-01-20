@@ -1,5 +1,6 @@
 // Globals
 let cropper;
+let timer;
 
 $('#postTextarea, #replyTextarea').keyup((e) => {
   const textbox = $(e.target);
@@ -222,6 +223,27 @@ $('#coverPhotoButton').click(() => {
       },
     });
   });
+});
+
+$('#userSearchTextbox').keydown((e) => {
+  clearTimeout(timer);
+  const textbox = $(e.target);
+  let value = textbox.val();
+
+  if (value === '' && e.keycode === 8) {
+    // remove user from selection
+    return;
+  }
+
+  timer = setTimeout(() => {
+    value = textbox.val().trim();
+
+    if (value === '') {
+      $('.resultsContainer').html('');
+    } else {
+      searchUsers(value);
+    }
+  }, 1000);
 });
 
 $(document).on('click', '.likeButton', (e) => {
@@ -539,4 +561,8 @@ const createUserHtml = (userData, showFollowButton) => {
     </div>
     ${followButton}
   </div>`;
+};
+
+const searchUsers = (searchTerm) => {
+  console.log('hi');
 };
