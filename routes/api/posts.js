@@ -35,6 +35,11 @@ router.get('/', async (req, res, next) => {
     delete searchObj.followingOnly;
   }
 
+  if (searchObj.search !== undefined) {
+    searchObj.content = { $regex: searchObj.search, $options: 'i' };
+    delete searchObj.search;
+  }
+
   const results = await getPosts(searchObj);
   res.status(200).send(results);
 });
