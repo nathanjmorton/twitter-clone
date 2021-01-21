@@ -511,6 +511,7 @@ button span {
 
 .resultsDetailsContainer .heading {
   font-weight: 500;
+  display: block;
 }
 
 .resultsDetailsContainer .subtext {

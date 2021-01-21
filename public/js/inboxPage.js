@@ -20,7 +20,7 @@ outputChatList = (chatList, container) => {
 };
 
 const createChatHtml = (chatData) => {
-  let chatName = 'Chat name'; // TODO
+  let chatName = getChatName(chatData);
   let image = ''; // TODO
   let latestMessage = 'This is the latest message';
   return `<a href='/messages/${chatData._id}' class='resultListItem'>
@@ -30,4 +30,24 @@ const createChatHtml = (chatData) => {
       
     </div>
   </a>`;
+};
+
+const getChatName = (chatData) => {
+  let chatName = chatData.chatName;
+
+  if (!chatName) {
+    let otherChatUsers = getOtherChatUsers(chatData.users);
+    let namesArray = otherChatUsers.map(
+      (user) => user.firstName + ' ' + user.lastName
+    );
+    chatName = namesArray.join(', ');
+  }
+  return chatName;
+};
+
+const getOtherChatUsers = (users) => {
+  if (users.length === 1) {
+    return users;
+  }
+  return users.filter((user) => user._id !== userLoggedIn._id);
 };
