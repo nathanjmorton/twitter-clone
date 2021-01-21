@@ -231,8 +231,12 @@ $('#userSearchTextbox').keydown((e) => {
   const textbox = $(e.target);
   let value = textbox.val();
 
-  if (value === '' && e.keycode === 8) {
+  if (value === '' && (e.which === 8 || e.keyCode === 8)) {
     // remove user from selection
+    selectedUsers.pop();
+    updateSelectedUsersHtml();
+    $('.resultsContainer').html('');
+
     return;
   }
 
@@ -581,7 +585,7 @@ const outputSelectableUsers = (results, container) => {
       return;
     }
 
-    html = createUserHtml(result, true);
+    html = createUserHtml(result, false);
     let element = $(html);
     element.click((e) => userSelected(result));
     container.append(element);
