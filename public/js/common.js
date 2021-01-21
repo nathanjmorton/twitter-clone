@@ -237,6 +237,10 @@ $('#userSearchTextbox').keydown((e) => {
     updateSelectedUsersHtml();
     $('.resultsContainer').html('');
 
+    if (selectedUsers.length === 0) {
+      $('#createChatButton').prop('disabled', true);
+    }
+
     return;
   }
 
