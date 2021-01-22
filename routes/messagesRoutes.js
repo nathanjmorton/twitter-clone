@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
 const router = express.Router();
 const bodyParser = require('body-parser');
@@ -25,6 +26,7 @@ router.get('/new', (req, res, next) => {
 router.get('/:chatId', async (req, res, next) => {
   const userId = req.session.user._id;
   const chatId = req.params.chatId;
+  const isValidId = mongoose.isValidObjectId(chatId);
 
   const payload = {
     pageTitle: 'Chat',
@@ -32,16 +34,22 @@ router.get('/:chatId', async (req, res, next) => {
     userLoggedInJs: JSON.stringify(req.session.user),
   };
 
+  if (!isValidId) {
+    payload.errorMessage =
+      'Chat does not exist or you do not have permission to view it';
+    return res.status(200).render('chatPage', payload);
+  }
+
   const chat = await Chat.findOne({
     _id: chatId,
     users: { $elemMatch: { $eq: userId } },
   }).populate('users');
 
-  if (chat !== null) {
+  if (chat == null) {
     // Check if chatId is really userId
     const userFound = await User.findById(chatId);
 
-    if (userFound === null) {
+    if (userFound !== null) {
       // get chat using user id
     }
   }
