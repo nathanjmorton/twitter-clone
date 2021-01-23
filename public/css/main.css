@@ -17,7 +17,7 @@ html,
 body {
   height: 100%;
   min-height: 100%;
-  background-color: #ffffff;
+  background-color: #fff;
   font-weight: 300;
 }
 
@@ -65,6 +65,7 @@ nav a.blue {
 
 nav a:hover {
   background-color: var(--buttonHoverBg);
+  color: var(--blue);
   border-radius: 50%;
 }
 
@@ -124,6 +125,10 @@ button span {
   padding-top: var(--spacing);
 }
 
+.modal .post {
+  padding: 0 0 var(--spacing) 0;
+}
+
 .userImageContainer {
   width: 50px;
   height: 50px;
@@ -132,7 +137,7 @@ button span {
 .userImageContainer img {
   width: 100%;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: white;
 }
 
 .textareaContainer {
@@ -149,7 +154,7 @@ button span {
 
 #submitPostButton {
   background-color: var(--blue);
-  color: #ffffff;
+  color: white;
   border: none;
   border-radius: 40px;
   padding: 7px 15px;
@@ -168,7 +173,7 @@ button span {
   flex-shrink: 0;
 }
 
-.mainSectionContainer {
+.mainContentContainer {
   flex: 1;
   display: flex;
 }
@@ -199,13 +204,14 @@ button span {
   display: flex;
 }
 
-.postFooter .postButtonContainer {
+.postFooter .postButtonContainer button {
   padding: 2px 5px;
 }
 
 .header a:hover {
   text-decoration: underline;
 }
+
 .header a,
 .header span {
   padding-right: 5px;
@@ -222,6 +228,7 @@ button span {
 }
 
 .postButtonContainer.red button:hover {
+  color: var(--red);
   background-color: var(--redBackground);
 }
 
@@ -230,6 +237,7 @@ button span {
 }
 
 .postButtonContainer.green button:hover {
+  color: var(--green);
   background-color: var(--greenBackground);
 }
 
@@ -238,10 +246,6 @@ button span {
   font-size: 13px;
   color: var(--greyText);
   margin-bottom: 5px;
-}
-
-.modal .post {
-  padding: 0 0 var(--spacing) 0;
 }
 
 .replyFlag {
@@ -269,25 +273,26 @@ button span {
   padding: var(--spacing);
 }
 
-.profileHeaderContainer .coverPhotoSection {
+.coverPhotoSection {
   height: 180px;
   background-color: var(--blue);
   position: relative;
 }
 
 .profileHeaderContainer .userImageContainer {
-  height: 132px;
   width: 132px;
+  height: 132px;
   margin-left: var(--spacing);
   position: absolute;
   bottom: -66px;
+
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .profileHeaderContainer .userImageContainer img {
-  border: 4px solid #ffffff;
+  border: 4px solid #fff;
 }
 
 .profileHeaderContainer .profileButtonsContainer {
@@ -314,7 +319,7 @@ button span {
 
 .followButton.following {
   background-color: var(--blue);
-  color: #ffffff;
+  color: #fff;
 }
 
 .profileHeaderContainer .userDetailsContainer {
@@ -337,7 +342,7 @@ button span {
 }
 
 .followersContainer a:hover {
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #000;
 }
 
 .tabsContainer {
@@ -414,17 +419,15 @@ button span {
 
 #imagePreview,
 #coverPreview {
-  display: block;
   width: 100%;
+  display: block;
+
+  /* This rule is very important, please don't ignore this */
   max-width: 100%;
 }
 
 .pinButton.active {
   color: var(--blue);
-}
-
-.mainContentContainer {
-  display: flex;
 }
 
 .pinnedPostText {
@@ -462,6 +465,7 @@ button span {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  flex: 1;
 }
 
 .chatTitleBar {
@@ -486,7 +490,7 @@ button span {
 #createChatButton {
   border: none;
   background-color: var(--blue);
-  color: #ffffff;
+  color: #fff;
   padding: 7px 20px;
   margin: 10px auto;
   border-radius: 40px;
@@ -498,7 +502,7 @@ button span {
 }
 
 .selectedUser {
-  front-weight: 300;
+  font-weight: 300;
   background-color: #cbe5fe;
   color: #0084ff;
   padding: 5px;
@@ -520,16 +524,16 @@ button span {
 }
 
 .resultsDetailsContainer {
+  display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .resultsDetailsContainer .heading {
   font-weight: 500;
-  display: block;
 }
 
-.resultsDetailsContainer .subtext {
+.resultsDetailsContainer .subText {
   color: var(--greyText);
   font-size: 14px;
 }
@@ -556,7 +560,7 @@ button span {
   position: absolute;
   bottom: 0;
   margin: 0;
-  border: 2px solid #ffffff;
+  border: 2px solid #fff;
 }
 
 .groupChatImage img:first-of-type {
@@ -568,4 +572,90 @@ button span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.chatTitleBarContainer {
+  border-bottom: 1px solid var(--lightGrey);
+  display: flex;
+  align-items: center;
+  padding: var(--spacing);
+}
+
+#chatName {
+  width: 100%;
+  border: 1px solid transparent;
+  padding: 0 5px;
+}
+
+#chatName:hover {
+  border: 1px solid var(--lightGrey);
+  cursor: text;
+}
+
+.chatContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+.chatContainer .footer {
+  display: flex;
+  padding: var(--spacing);
+  flex-shrink: 0px;
+}
+
+.chatContainer .footer textarea {
+  flex: 1;
+  resize: none;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 18px;
+  border: none;
+  padding: 8px 12px;
+  height: 38px;
+}
+
+.chatContainer .footer button {
+  background-color: transparent;
+  color: var(--blue);
+  font-size: 24px;
+}
+
+.chatMessages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: var(--spacing);
+}
+
+.chatImagesContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100%;
+  margin-right: 10px;
+}
+
+.chatImagesContainer img {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.chatImagesContainer .userCount {
+  height: 40px;
+  width: 40px;
+  background-color: #f1f1f1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border: 2px solid #fff;
+}
+
+.chatImagesContainer img:not(:last-child),
+.chatImagesContainer .userCount {
+  margin-left: -10px;
 }
