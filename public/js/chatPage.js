@@ -20,3 +20,28 @@ $('#chatNameButton').click(() => {
     },
   });
 });
+
+$('.sendMessageButton').click(() => {
+  messageSubmitted();
+});
+
+$('.inputTextbox').keydown((e) => {
+  if (e.which === 13 && !e.shiftKey) {
+    messageSubmitted();
+    return false;
+  }
+});
+
+const messageSubmitted = () => {
+  const content = $('.inputTextbox').val().trim();
+  if (content !== '') {
+    sendMessage(content);
+    $('.inputTextbox').val('');
+  }
+};
+
+const sendMessage = (content) => {
+  $.post('/api/messages', { content, chatId }, (data, status, xhr) => {
+    console.log(data);
+  });
+};
