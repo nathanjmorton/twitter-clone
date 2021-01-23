@@ -40,7 +40,7 @@ router.get('/:chatId', async (req, res, next) => {
     return res.status(200).render('chatPage', payload);
   }
 
-  const chat = await Chat.findOne({
+  let chat = await Chat.findOne({
     _id: chatId,
     users: { $elemMatch: { $eq: userId } },
   }).populate('users');
@@ -51,6 +51,7 @@ router.get('/:chatId', async (req, res, next) => {
 
     if (userFound !== null) {
       // get chat using user id
+      chat = await getChatByUserId(userFound._id, userId);
     }
   }
 
@@ -63,5 +64,29 @@ router.get('/:chatId', async (req, res, next) => {
 
   res.status(200).render('chatPage', payload);
 });
+
+const getChatByUserId = (userLoggedInId, otherUserId) => {
+  return Chat.findOneAndUpdate(
+    {
+      isGroupChat: false,
+      users: {
+        $size: 2,
+        $all: [
+          { $elemMatch: { $eq: mongoose.Types.ObjectId(userLoggedInId) } },
+          { $elemMatch: { $eq: mongoose.Types.ObjectId(otherUserId) } },
+        ],
+      },
+    },
+    {
+      $setOnInsert: {
+        users: [userLoggedInId, otherUserId],
+      },
+    },
+    {
+      new: true,
+      upsert: true,
+    }
+  ).populate('users');
+};
 
 module.exports = router;
