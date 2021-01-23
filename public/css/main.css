@@ -68,8 +68,15 @@ nav a:hover {
   border-radius: 50%;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .wrapper > .row {
   margin: 0;
+  height: 100%;
 }
 
 button {
