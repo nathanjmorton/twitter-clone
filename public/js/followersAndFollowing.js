@@ -1,19 +1,21 @@
 $(document).ready(() => {
-  if (selectedTab === 'followers') {
-    loadFollowers();
-  } else {
-    loadFollowing();
-  }
+
+    if(selectedTab === "followers") {
+        loadFollowers();
+    }
+    else {
+        loadFollowing();
+    }
 });
 
-const loadFollowers = () => {
-  $.get(`/api/users/${profileUserId}/followers`, (results) => {
-    outputUsers(results.followers, $('.resultsContainer'));
-  });
-};
+function loadFollowers() {
+    $.get(`/api/users/${profileUserId}/followers`, results => {
+        outputUsers(results.followers, $(".resultsContainer"));
+    })
+}
 
-const loadFollowing = () => {
-  $.get(`/api/users/${profileUserId}/following`, (results) => {
-    outputUsers(results.following, $('.resultsContainer'));
-  });
-};
+function loadFollowing() {
+    $.get(`/api/users/${profileUserId}/following`, results => {
+        outputUsers(results.following, $(".resultsContainer"));
+    })
+}

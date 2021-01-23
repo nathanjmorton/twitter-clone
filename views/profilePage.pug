@@ -13,19 +13,20 @@ block content
             
         .profileHeaderContainer
             .coverPhotoSection
-                .coverPhotoContainer 
-                    if profileUser.coverPhoto 
-                        img(src=profileUser.coverPhoto, alt="cover photo")
-                    if profileUser._id === userLoggedIn._id 
-                        button.coverPhotoButton(data-toggle='modal', data-target='#coverPhotoUploadModal')
-                            i.fas.fa-camera 
+                .coverPhotoContainer
+                    if profileUser.coverPhoto
+                        img(src=profileUser.coverPhoto, alt="User's cover photo")
+
+                    if profileUser._id == userLoggedIn._id
+                        button.coverPhotoButton(data-toggle="modal", data-target="#coverPhotoUploadModal")
+                            i.fas.fa-camera
 
                 .userImageContainer
                     img(src=profileUser.profilePic, alt="User profile image")
 
-                    if profileUser._id === userLoggedIn._id 
-                        button.profilePictureButton(data-toggle='modal', data-target='#imageUploadModal')
-                            i.fas.fa-camera 
+                    if profileUser._id == userLoggedIn._id
+                        button.profilePictureButton(data-toggle="modal", data-target="#imageUploadModal")
+                            i.fas.fa-camera
 
             .profileButtonsContainer
                 if profileUser._id != userLoggedIn._id

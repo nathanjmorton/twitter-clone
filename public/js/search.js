@@ -1,27 +1,35 @@
-$('#searchBox').keydown((e) => {
-  clearTimeout(timer);
-  const textbox = $(e.target);
-  let value = textbox.val();
-  const searchType = textbox.data().search;
+$("#searchBox").keydown((event) => {
+    clearTimeout(timer);
+    var textbox = $(event.target);
+    var value = textbox.val();
+    var searchType = textbox.data().search;
 
-  timer = setTimeout(() => {
-    value = textbox.val().trim();
+    timer = setTimeout(() => {
+        value = textbox.val().trim();
 
-    if (value === '') {
-      $('.resultsContainer').html('');
-    } else {
-      search(value, searchType);
-    }
-  }, 1000);
-});
+        if(value == "") {
+            $(".resultsContainer").html("");
+        }
+        else {
+            search(value, searchType);
+        }
+    }, 1000)
 
-const search = (searchTerm, searchType) => {
-  const url = searchType === 'users' ? '/api/users' : '/api/posts';
-  $.get(url, { search: searchTerm }, (results) => {
-    if (searchType === 'users') {
-      outputUsers(results, $('.resultsContainer'));
-    } else {
-      outputPosts(results, $('.resultsContainer'));
-    }
-  });
-};
+})
+
+function search(searchTerm, searchType) {
+    var url = searchType == "users" ? "/api/users" : "/api/posts"
+
+    $.get(url, { search: searchTerm }, (results) => {
+        
+
+
+        if(searchType == "users") {
+            outputUsers(results, $(".resultsContainer"));
+        }
+        else {
+            outputPosts(results, $(".resultsContainer"))
+        }
+
+    })
+}

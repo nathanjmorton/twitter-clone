@@ -1,5 +1,5 @@
-$(document).ready(async () => {
-  $.get('/api/posts', { followingOnly: true }, (results) => {
-    outputPosts(results, $('.postsContainer'));
-  });
-});
+$(document).ready(() => {
+    $.get("/api/posts", { followingOnly: true }, results => {
+        outputPosts(results, $(".postsContainer"));
+    })
+})
