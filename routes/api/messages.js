@@ -25,6 +25,12 @@ router.post('/', async (req, res, next) => {
     .then(async (message) => {
       message = await message.populate('sender').execPopulate();
       message = await message.populate('chat').execPopulate();
+
+      Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message }).catch(
+        (err) => {
+          console.log(err);
+        }
+      );
       res.status(201).send(message);
     })
     .catch((err) => {
