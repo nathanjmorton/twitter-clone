@@ -22,8 +22,10 @@ router.post('/', async (req, res, next) => {
   };
 
   Message.create(newMessage)
-    .then((results) => {
-      res.status(201).send(results);
+    .then(async (message) => {
+      message = await message.populate('sender').execPopulate();
+      message = await message.populate('chat').execPopulate();
+      res.status(201).send(message);
     })
     .catch((err) => {
       console.log(err);
